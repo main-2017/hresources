@@ -15,7 +15,7 @@ if (isset($_SESSION['user'])) {
 <html>
 <head>
 	<?php include('../../includes_style/cabeceras-interior.php') ?>	
-	<title>hResourse</title>
+	<title>hResources</title>
 </head>
 <body>
 <!-- Header -->

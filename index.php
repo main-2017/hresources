@@ -1,6 +1,4 @@
 <!-- Login -->
-
-
 <!-- Comprobación de sesión iniciada -->
 
 <?php 

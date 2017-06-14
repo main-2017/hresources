@@ -294,3 +294,33 @@ function mailer(){
 
 	console.log("Esto es un contador de prueba");
 };
+
+// Busqueda en tiempo real de empleados
+$(buscar_empleados());
+
+function buscar_empleados(consulta){
+	jQuery.ajax({
+		url: '../buscar-empleado.php',
+		type: 'POST',
+		dataType: 'html',
+		data: {consulta: consulta},
+	})
+	.done(function(respuesta) {
+		$("#tabla-empleado").html(respuesta);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+}
+
+$(document).on('keyup', '#search', function(){
+	var contenido = $(this).val();
+	if (contenido != "") {
+		buscar_empleados(contenido);
+	}else{
+		buscar_empleados();
+	}
+});
+
+// Actualización de empleados
+

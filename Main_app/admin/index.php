@@ -57,63 +57,140 @@ if (isset($_SESSION['user'])) {
 	<!-- Fin de Sección Resumen -->
 	<!-- Sección Empleados -->
 	<section id="empleados" class="tab-pane fade">
-		<ul class="nav nav-pills nav-justified" id="pills">
-		  <li class="active"><a href="#ingresar">Ingresar</a></li>
-		  <li><a href="#modificar">Modificar</a></li>
-		  <li><a href="#eliminar">Eliminar</a></li>
+		<ul class="nav nav-tabs nav-justified">
+		  <li class="active"><a href="#ingresar" data-toggle="tab">Ingresar</a></li>
+		  <li><a href="#modificar" data-toggle="tab">Modificar</a></li>
+		  <li><a href="#eliminar" data-toggle="tab">Eliminar</a></li>
 		</ul>
-		<div id="ingresar">
-			<div class="container">
-			<br>
-			<h4 class="text-center text-muted">Ingreso de nuevos empleados</h4>
-			<br>
-				<form class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" role="form" id="ingresar-empleado" action="" method="POST">
-					<div class="form-group">
-						<input type="number" name="cc" class="form-control" id="cc-empleado" required placeholder="CC" pattern="[0-9]{8,10}">
+		<div class="tab-content">
+			<div id="ingresar" class="tab-pane fade in active">
+				<div class="container">
+				<br>
+				<h4 class="text-center text-muted">Ingreso de nuevos empleados</h4>
+				<br>
+					<form class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" role="form" id="ingresar-empleado" action="" method="POST">
+						<div class="form-group">
+							<input type="number" name="cc" class="form-control" id="cc-empleado" required placeholder="CC" pattern="[0-9]{8,10}">
 
-					</div>
-					<div class="form-group">
-						<input type="text" name="nombre" class="form-control" id="nombre-empleado" required placeholder="Nombre" pattern="[A-Za-z ]{2,50}">
-						<input type="text" name="apellido" class="form-control" id="apellido-empleado" required placeholder="Apellido" pattern="[A-Za-z ]{2,50}">
-					</div>
-					<div class="form-group">
-						<input type="tel" name="telefono" class="form-control" id="telefono-empleado" placeholder="Teléfono" pattern="[0-9()]{4,20}">
-						<input type="tel" name="celular" class="form-control" id="celular-empleado" placeholder="Celular" pattern="[0-9()]{4,20}">
-					</div>
-					<div class="form-group">
-						<input type="text" name="domicilio" class="form-control" id="domicilio-empleado" placeholder="Domicilio" required pattern="[A-Za-z0-9 ]{2,70}">
-						<input type="text" name="nacionalidad" class="form-control" id="nacionalidad-empleado" placeholder="Nacionalidad" required pattern="[A-Za-z ]{2,50}">
-					</div>
-					<br>
-					<div class="radio">
-					<h5 class="text-muted text-center">Sexo</h5>
-						<div style="width: 200px;display: block;margin: auto;">
-							<label><input id="masculino" type="radio" name="sexo" value="masculino" checked>Masculino</label>
-							<label><input id="femenino" type="radio" name="sexo" value="femenino">Femenino</label>
 						</div>
-					</div>
-					<br>
-					<h5 class="text-muted text-center">Estado</h5>
-					<select class="form-control" name="estado">
-						<option value="Activo">Activo</option>
-						<option value="Inactivo">Inactivo</option>
-						<option value="Renuncio">Renunció</option>
-						<option value="Contrato terminado">Contrato terminado</option>
-						<option value="Reingreso">Reingreso</option>
-					</select>
-					<br>
-					<hr>
-					<div style="float: right;">
-						<button type="reset" class="btn btn-danger">Borrar</button>
-						<button type="submit" class="btn btn-success">Guardar</button>
-						<button type="button" class="btn btn-primary">Guardar y cargar contrato</button>
-					</div>
-				</form>
+						<div class="form-group">
+							<input type="text" name="nombre" class="form-control" id="nombre-empleado" required placeholder="Nombre" pattern="[A-Za-z ]{2,50}">
+							<input type="text" name="apellido" class="form-control" id="apellido-empleado" required placeholder="Apellido" pattern="[A-Za-z ]{2,50}">
+						</div>
+						<div class="form-group">
+							<input type="tel" name="telefono" class="form-control" id="telefono-empleado" placeholder="Teléfono" pattern="[0-9()]{4,20}">
+							<input type="tel" name="celular" class="form-control" id="celular-empleado" placeholder="Celular" pattern="[0-9()]{4,20}">
+						</div>
+						<div class="form-group">
+							<input type="text" name="domicilio" class="form-control" id="domicilio-empleado" placeholder="Domicilio" required pattern="[A-Za-z0-9 ]{2,70}">
+							<input type="text" name="nacionalidad" class="form-control" id="nacionalidad-empleado" placeholder="Nacionalidad" required pattern="[A-Za-z ]{2,50}">
+						</div>
+						<br>
+						<div class="radio">
+						<h5 class="text-muted text-center">Sexo</h5>
+							<div style="width: 200px;display: block;margin: auto;">
+								<label><input id="masculino" type="radio" name="sexo" value="masculino" checked>Masculino</label>
+								<label><input id="femenino" type="radio" name="sexo" value="femenino">Femenino</label>
+							</div>
+						</div>
+						<br>
+						<h5 class="text-muted text-center">Estado</h5>
+						<select class="form-control" name="estado">
+							<option value="Activo">Activo</option>
+							<option value="Inactivo">Inactivo</option>
+							<option value="Renuncio">Renunció</option>
+							<option value="Contrato terminado">Contrato terminado</option>
+							<option value="Reingreso">Reingreso</option>
+						</select>
+						<br>
+						<hr>
+						<div style="float: right;">
+							<button type="reset" class="btn btn-danger">Borrar</button>
+							<button type="submit" class="btn btn-success">Guardar</button>
+							<button type="button" class="btn btn-primary">Guardar y cargar contrato</button>
+						</div>
+					</form>
+				</div>
 			</div>
-		</div>
-		<div id="modificar">
-		</div>
-		<div id="eliminar">
+			<div class="tab-pane fade" id="modificar">
+				<div class="container">
+				<br>
+				<h4 class="text-center text-muted">Modificar datos de empleados</h4>
+				<br>
+				<form  method="post" accept-charset="utf-8" id="busqueda-empleado">
+						<input class="form-control" type="text" name="search" id="search" pattern="[A-Za-z0-9]{1-50}" placeholder="Buscar empleado...">	
+						<br>
+						<br>
+						<div id="tabla-empleado">
+							<!-- Tabla generada de manera dinámica -->
+						</div>
+				</form>
+				<!-- Modal con Formulario de edición de empleado -->
+				<div id="modal-modificar-empleado" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title">Modificar datos de empleado</h5>
+				        <button type="button" class="close" data-dismiss="modal">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <form action=" " method="POST" role="form">
+				        	<div class="form-group">
+				        		<label class="text-muted" for="cc">Nº de CC</label>
+				        		<input type="number" name="cc" class="form-control" id="cc" pattern="[0-9]{8,10}">
+				        	</div>
+				        	<div class="form-group">
+				        		<label class="text-muted" for="nombre">Nombre</label>
+				        		<input type="text" name="cc" class="form-control" id="nombre" pattern="[A-Za-z ]{2, 50}">
+				        	</div>
+				        	<div class="form-group">
+				        		<label class="text-muted" for="apellido">Apellido</label>
+				        		<input type="text" name="apellido" class="form-control" id="apellido" pattern="[A-Za-z ]{2, 50}">
+				        	</div>
+				        	<div class="form-group">
+				        		<label class="text-muted" for="telefono">Telefono</label>
+				        		<input type="tel" name="telefono" class="form-control" id="telefono" pattern="[0-9()]{4, 20}">
+				        	</div>
+				        	<div class="form-group">
+				        		<label class="text-muted" for="celular">Celular</label>
+				        		<input type="tel" name="celular" class="form-control" id="celular" pattern="[0-9()]{4, 20}">
+				        	</div>
+				        	<div class="form-group">
+				        		<label class="text-muted" for="domicilio">Domicilio</label>
+				        		<input type="text" name="domicilio" class="form-control" id="domicilio" pattern="[A-Za-z0-9 ]{2, 70}">
+				        	</div>
+				        	<div class="radio">
+							<h5 class="text-muted text-center">Sexo</h5>
+							<div style="width: 200px;display: block;margin: auto;">
+								<label><input id="masculino" type="radio" name="sexo" value="masculino" checked>Masculino</label>
+								<label><input id="femenino" type="radio" name="sexo" value="femenino">Femenino</label>
+							</div>
+						</div>
+						<br>
+						<h5 class="text-muted text-center">Estado</h5>
+						<select class="form-control" name="estado">
+							<option value="Activo">Activo</option>
+							<option value="Inactivo">Inactivo</option>
+							<option value="Renuncio">Renunció</option>
+							<option value="Contrato terminado">Contrato terminado</option>
+							<option value="Reingreso">Reingreso</option>
+						</select>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-primary">Guardar cambios</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- Fin de Modal con Formulario de edición de empleado -->
+				</div>
+			</div>
+			<div class="tab-pane fade" id="eliminar">
+			</div>
 		</div>
 		<!-- Ventana Modal de confirmación y error -->
 		<!-- Modal Exito-->

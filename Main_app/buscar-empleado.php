@@ -25,7 +25,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQU
 					<td><input type='text' name='estado[]' value='".$fila['Estado']."' readonly style='border:none;'></td>";
 					
 
-					$salida.="<td><button type='button' class='btn btn-primary' name='modificar[]' value='".$fila['CC']."' data-toggle='modal' data-target='#modal-modificar-empleado'>Modificar</button></td><td><button class='btn btn-danger' name='eliminar[]' value='".$fila['CC']."'>Eliminar</button></td></tr>";
+					$salida.="<td><button type='button' class='open-modal btn btn-primary' name='modificar[]' value='".$fila['CC']."' data-toggle='modal' data-target='#modal-modificar-empleado'>Modificar</button></td><td><button type='button' class='eliminar-empleado btn btn-danger' data-toggle='modal' data-target='#advertenciaModal' name='eliminar[]' value='".$fila['CC']."'>Eliminar</button></td></tr>";
 			}
 		$salida.="</tbody></table>";
 	}else{

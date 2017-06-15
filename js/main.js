@@ -322,5 +322,208 @@ $(document).on('keyup', '#search', function(){
 	}
 });
 
-// Actualización de empleados
+//Pasaje de datos a ventana modal
+$(document).on('click', '.open-modal', function(){
+	var EmpCC = $(this).val();
+	$(".modal-body #cc").val(EmpCC);
+	loadDataModal(EmpCC);
+});
 
+// Carga de datos en Formulario Modal
+function loadDataModal(input){
+	jQuery.ajax({
+		url: '../load-data-modal.php',
+		type: 'POST',
+		dataType: 'html',
+		data: {input: input},
+	})
+	.done(function(respuesta) {
+		$("#form-data-modal").html(respuesta);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+};
+
+// Confirmación de cambios en empleados
+jQuery(document).on('submit', '#form-data-modal', function(event){
+	event.preventDefault();
+	jQuery.ajax({
+	  url: '../save-changes.php',
+	  type: 'POST',
+	  dataType: 'json',
+	  data: $(this).serialize(),
+	  complete: function(respuesta) {
+	    if (!respuesta.error) {
+	    	$('#success').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }else{
+	    	$('#error').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }
+	  },
+	  success: function(answer) {
+	    console.log(answer.responseText);
+	  },
+	  error: function(xhr, textStatus, errorThrown) {
+	    //called when there is an error
+	  }
+	});
+	
+});
+
+// Eliminación de empleados
+
+$(document).on('click', '.eliminar-empleado', function(){
+	var dellCC = $(this).val();
+	$('#cc-empleado-eliminar').val(dellCC);
+	
+});
+
+$(document).on('submit', '#eliminarEmpleado', function(event){
+	event.preventDefault();
+		jQuery.ajax({
+		  url: '../eliminar-empleado.php',
+		  type: 'POST',
+		  dataType: 'json',
+		  data: $(this).serialize(),
+		  complete: function(respuesta) {
+		    if (!respuesta.error) {
+		    	$('#success-delete').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }else{
+	    	$('#error-delete').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+		    }
+		  },
+		  success: function(data, textStatus, xhr) {
+		    //called when successful
+		  },
+		  error: function(answer) {
+		    console.log(answer.responseText);
+		  }
+		});
+			
+});
+
+// Modificación y eliminación de contratos
+
+// Búsqueda en tiempo real de contratos
+$(buscar_contratos());
+
+function buscar_contratos(consulta){
+	jQuery.ajax({
+		url: '../buscar-contratos.php',
+		type: 'POST',
+		dataType: 'html',
+		data: {consulta: consulta},
+	})
+	.done(function(respuesta) {
+		$("#tabla-contrato").html(respuesta);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+};
+
+$(document).on('keyup', '#searchContract', function(){
+	var contenido = $(this).val();
+	if (contenido != "") {
+		buscar_contratos(contenido);
+	}else{
+		buscar_contratos();
+	}
+});
+
+//Pasaje de datos a ventana modal
+$(document).on('click', '.open-modal-contract', function(){
+	var contID = $(this).val();
+	$(".modal-body #id-contract").val(contID);
+	loadContactModal(contID);
+});
+
+// Carga de datos en Formulario Modal
+function loadContactModal(input){
+	jQuery.ajax({
+		url: '../load-contact-modal.php',
+		type: 'POST',
+		dataType: 'html',
+		data: {input: input},
+	})
+	.done(function(respuesta) {
+		$("#form-contract-modal").html(respuesta);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+};
+
+// Confirmación de cambios en contratos
+
+jQuery(document).on('submit', '#form-contract-modal', function(event){
+	event.preventDefault();
+	jQuery.ajax({
+	  url: '../save-changes-contract.php',
+	  type: 'POST',
+	  dataType: 'json',
+	  data: $(this).serialize(),
+	  complete: function(respuesta) {
+	    if (!respuesta.error) {
+	    	$('#successContract').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }else{
+	    	$('#errorContract').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }
+	  },
+	  success: function(answer) {
+	    console.log(answer.responseText);
+	  },
+	  error: function(xhr, textStatus, errorThrown) {
+	    //called when there is an error
+	  }
+	});
+	
+});
+
+// Eliminación de contratos
+
+$(document).on('click', '.eliminar-contrato', function(){
+	var dellID = $(this).val();
+	$('#cc-contrato-eliminar').val(dellID);
+	
+});
+
+$(document).on('submit', '#eliminarContrato', function(event){
+	event.preventDefault();
+		jQuery.ajax({
+		  url: '../eliminar-contrato.php',
+		  type: 'POST',
+		  dataType: 'json',
+		  data: $(this).serialize(),
+		  complete: function(respuesta) {
+		    if (!respuesta.error) {
+		    	$('#success-delete-contract').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }else{
+	    	$('#error-delete-contract').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+		    }
+		  },
+		  success: function(data, textStatus, xhr) {
+		    //called when successful
+		  },
+		  error: function(answer) {
+		    console.log(answer.responseText);
+		  }
+		});
+			
+});

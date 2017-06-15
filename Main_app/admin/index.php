@@ -59,8 +59,7 @@ if (isset($_SESSION['user'])) {
 	<section id="empleados" class="tab-pane fade">
 		<ul class="nav nav-tabs nav-justified">
 		  <li class="active"><a href="#ingresar" data-toggle="tab">Ingresar</a></li>
-		  <li><a href="#modificar" data-toggle="tab">Modificar</a></li>
-		  <li><a href="#eliminar" data-toggle="tab">Eliminar</a></li>
+		  <li><a href="#modificar" data-toggle="tab">Modificar o Eliminar</a></li>
 		</ul>
 		<div class="tab-content">
 			<div id="ingresar" class="tab-pane fade in active">
@@ -107,7 +106,6 @@ if (isset($_SESSION['user'])) {
 						<div style="float: right;">
 							<button type="reset" class="btn btn-danger">Borrar</button>
 							<button type="submit" class="btn btn-success">Guardar</button>
-							<button type="button" class="btn btn-primary">Guardar y cargar contrato</button>
 						</div>
 					</form>
 				</div>
@@ -136,51 +134,18 @@ if (isset($_SESSION['user'])) {
 				        </button>
 				      </div>
 				      <div class="modal-body">
-				        <form action=" " method="POST" role="form">
+				      <div id="success" class="alert alert-success text-center" style="display: none;">Datos guardados correctamente.</div>
+                    <div id="error" class="alert alert-danger text-center" style="display: none;">Ocurrió un error durante la carga de datos. Vuelva a intentarlo</div>
+				        <form action=" " method="POST" role="form" id="form-data-modal" action="../save-changes.php">
 				        	<div class="form-group">
 				        		<label class="text-muted" for="cc">Nº de CC</label>
-				        		<input type="number" name="cc" class="form-control" id="cc" pattern="[0-9]{8,10}">
+				        		<input type="number" name="ccEmpleado" class="form-control" id="cc" value="" pattern="[0-9]{8,10}">
 				        	</div>
-				        	<div class="form-group">
-				        		<label class="text-muted" for="nombre">Nombre</label>
-				        		<input type="text" name="cc" class="form-control" id="nombre" pattern="[A-Za-z ]{2, 50}">
-				        	</div>
-				        	<div class="form-group">
-				        		<label class="text-muted" for="apellido">Apellido</label>
-				        		<input type="text" name="apellido" class="form-control" id="apellido" pattern="[A-Za-z ]{2, 50}">
-				        	</div>
-				        	<div class="form-group">
-				        		<label class="text-muted" for="telefono">Telefono</label>
-				        		<input type="tel" name="telefono" class="form-control" id="telefono" pattern="[0-9()]{4, 20}">
-				        	</div>
-				        	<div class="form-group">
-				        		<label class="text-muted" for="celular">Celular</label>
-				        		<input type="tel" name="celular" class="form-control" id="celular" pattern="[0-9()]{4, 20}">
-				        	</div>
-				        	<div class="form-group">
-				        		<label class="text-muted" for="domicilio">Domicilio</label>
-				        		<input type="text" name="domicilio" class="form-control" id="domicilio" pattern="[A-Za-z0-9 ]{2, 70}">
-				        	</div>
-				        	<div class="radio">
-							<h5 class="text-muted text-center">Sexo</h5>
-							<div style="width: 200px;display: block;margin: auto;">
-								<label><input id="masculino" type="radio" name="sexo" value="masculino" checked>Masculino</label>
-								<label><input id="femenino" type="radio" name="sexo" value="femenino">Femenino</label>
-							</div>
-						</div>
-						<br>
-						<h5 class="text-muted text-center">Estado</h5>
-						<select class="form-control" name="estado">
-							<option value="Activo">Activo</option>
-							<option value="Inactivo">Inactivo</option>
-							<option value="Renuncio">Renunció</option>
-							<option value="Contrato terminado">Contrato terminado</option>
-							<option value="Reingreso">Reingreso</option>
-						</select>
+				        	<!-- Formulario generado dinámicamente por el sistema -->
 				        </form>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-primary">Guardar cambios</button>
+				        <input type="submit" form="form-data-modal" class="btn btn-primary" value="Guardar cambios">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				      </div>
 				    </div>
@@ -188,9 +153,34 @@ if (isset($_SESSION['user'])) {
 				</div>
 				<!-- Fin de Modal con Formulario de edición de empleado -->
 				</div>
+				<!-- Modal de confirmación de eliminación -->
+				<div id="advertenciaModal" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header" style="background-color: red;">
+				        <h5 class="modal-title" style="color: #FFF;">¡Atención!</h5>
+				        <button type="button" class="close" data-dismiss="modal">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				       <div id="success-delete" class="alert alert-success text-center" style="display: none;">Datos eliminados correctamente.</div>
+                    	<div id="error-delete" class="alert alert-danger text-center" style="display: none;">Ocurrió un error durante la operación. Vuelva a intentarlo</div>
+				      <div class="modal-body">
+				      <p>¿Realmente desea eliminar todos los datos del empleado? Esta acción es <strong>irreversible</strong></p>
+				      </div>
+				      <div class="modal-footer">
+				      <form  method="POST" accept-charset="utf-8" id="eliminarEmpleado">
+				      	<input type="numer" name="cc-empleado-eliminar" id="cc-empleado-eliminar" hidden value="">
+				      </form>
+				        <button type="submit" class="btn btn-danger" value="confirm" form="eliminarEmpleado">Eliminar</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- Fin de Modal de confirmación de eliminación -->
 			</div>
-			<div class="tab-pane fade" id="eliminar">
-			</div>
+			
 		</div>
 		<!-- Ventana Modal de confirmación y error -->
 		<!-- Modal Exito-->
@@ -234,53 +224,131 @@ if (isset($_SESSION['user'])) {
 	<!-- Fin de Sección Empleados -->
 	<!-- Sección Contratos -->
 	<section id="contratos" class="tab-pane fade">
-		<div id="cargar">
-		<div class="container">
-		<br>
-		<h4 class="text-center text-muted">Carga de nuevos contratos</h4>
-		<br>
-			<form class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" method="POST" role="form" id="ingresar-contrato" accept="utf-8" action="../cargar-contrato.php">
-				<div class="form-group">
-				<h5 class="text-center text-muted">Nº de CC</h5>
-				<div id="select-contratos"></div>
-				<input type="number" name="cc" list="sugest-cc" placeholder="Nº de CC" class="form-control">
-				<!-- <select name="cc" class="form-control" id="select-contratos">
-					<option value="1">Seleccione un Nº de CC</option> -->
-				</select>
-				</div>
-				<div class="form-group">
-				<br>
-				<h5 class="text-muted text-center">Fechas inicio y finalización de contrato</h5>
-				<br>
-						<input type="date" name="Fecha_Inicio" class="form-control" id="Fecha_Inicio" required placeholder="Fecha de inicio del contrato. Formato 'AAAA/MM/DD'">
+		<ul class="nav nav-tabs nav-justified">
+		  <li class="active"><a href="#ingresar-contrato" data-toggle="tab">Ingresar</a></li>
+		  <li><a href="#modificar-contrato" data-toggle="tab">Modificar o Eliminar</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="ingresar-contrato" class="tab-pane fade in active">
+				<div class="container">
+					<br>
+					<h4 class="text-center text-muted">Carga de nuevos contratos</h4>
+					<br>
+					<form class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" method="POST" role="form" id="ingresar-contrato" accept="utf-8" action="../cargar-contrato.php">
+						<div class="form-group">
+						<h5 class="text-center text-muted">Nº de CC</h5>
+						<div id="select-contratos"></div>
+						<input type="number" name="cc" list="sugest-cc" placeholder="Nº de CC" class="form-control">
+						<!-- <select name="cc" class="form-control" id="select-contratos">
+							<option value="1">Seleccione un Nº de CC</option> -->
+						</select>
+						</div>
+						<div class="form-group">
+						<br>
+						<h5 class="text-muted text-center">Fechas inicio y finalización de contrato</h5>
+						<br>
+								<input type="date" name="Fecha_Inicio" class="form-control" id="Fecha_Inicio" required placeholder="Fecha de inicio del contrato. Formato 'AAAA/MM/DD'">
+								
+								<input type="date" name="Fecha_Fin" class="form-control" id="Fecha_Fin" required placeholder="Fecha de Finalización del contrato. Formato 'AAAA/MM/DD'">
+						</div>
+						<br>
+						<h5 class="text-muted text-center">Tipo de contrato</h5>
+						<select class="form-control" name="tipo">
+							<option value="Temporal 3 meses">Temporal 3 meses</option>
+							<option value="Temporal 1 año">Temporal 1 año</option>
+							<option value="Indefinido">Indefinido</option>
+						</select>
 						
-						<input type="date" name="Fecha_Fin" class="form-control" id="Fecha_Fin" required placeholder="Fecha de Finalización del contrato. Formato 'AAAA/MM/DD'">
-				</div>
-				<br>
-				<h5 class="text-muted text-center">Tipo de contrato</h5>
-				<select class="form-control" name="tipo">
-					<option value="Temporal 3 meses">Temporal 3 meses</option>
-					<option value="Temporal 1 año">Temporal 1 año</option>
-					<option value="Indefinido">Indefinido</option>
-				</select>
-				
-				<br>
-				<h5 class="text-muted text-center">Alerta de finalización de contrato</h5>
-				<select class="form-control" name="Alerta">
-					<option value="2592000">30 días antes</option>
-					<option value="864000">10 días antes</option>
-					<option value="172800">2 días antes</option>
-				</select>
+						<br>
+						<h5 class="text-muted text-center">Alerta de finalización de contrato</h5>
+						<select class="form-control" name="Alerta">
+							<option value="2592000">30 días antes</option>
+							<option value="864000">10 días antes</option>
+							<option value="172800">2 días antes</option>
+						</select>
 
-				<hr>
-				<div style="float: right;">
-					<button type="reset" class="btn btn-danger">Borrar</button>
-					<button type="submit" class="btn btn-success">Guardar</button>
+						<hr>
+						<div style="float: right;">
+							<button type="reset" class="btn btn-danger">Borrar</button>
+							<button type="submit" class="btn btn-success">Guardar</button>
+						</div>
+					</form>
 				</div>
-			</form>
-		</div>
-		</div>
+			</div>
+			<!-- Sección de Modificación y eliminación de contratos -->
+			<div id="modificar-contrato" class="tab-pane fade">
+				<div class="container">
+					<br>
+					<h4 class="text-center text-muted">Modificar contratos cargados</h4>
+					<br>
+					<form  method="post" accept-charset="utf-8" id="busqueda-contrado-md">
+							<input class="form-control" type="text" name="searchContract" id="searchContract" pattern="[A-Za-z0-9]{1-50}" placeholder="Buscar contrato...">	
+							<br>
+							<br>
+							<div id="tabla-contrato">
+								<!-- Tabla generada de manera dinámica -->
+							</div>
+					</form>
+					<!-- Modal con Formulario de edición de contratos -->
+						<div id="modal-modificar-contrato" class="modal fade" role="dialog">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title">Modificar contratos cargados</h5>
+						        <button type="button" class="close" data-dismiss="modal">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						      <div id="successContract" class="alert alert-success text-center" style="display: none;">Datos guardados correctamente.</div>
+		                    <div id="errorContract" class="alert alert-danger text-center" style="display: none;">Ocurrió un error durante la carga de datos. Vuelva a intentarlo</div>
+						        <form action=" " method="POST" role="form" id="form-contract-modal">
+						        	<div class="form-group">
+						        		<label class="text-muted" for="id-contract"></label>
+						        		<input type="number" name="idContrato" class="form-control" id="id-contract" value="" pattern="[0-9]{1,10}">
+						        	</div>
+						        	<!-- Formulario generado dinámicamente por el sistema -->
+						        </form>
+						      </div>
+						      <div class="modal-footer">
+						        <input type="submit" form="form-contract-modal" class="btn btn-primary" value="Guardar cambios">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+				<!-- Fin de Modal con Formulario de edición de contratos -->
 
+				<!-- Modal de confirmación de eliminación -->
+				<div id="advertenciaModalContratos" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header" style="background-color: red;">
+				        <h5 class="modal-title" style="color: #FFF;">¡Atención!</h5>
+				        <button type="button" class="close" data-dismiss="modal">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				       <div id="success-delete-contract" class="alert alert-success text-center" style="display: none;">Datos eliminados correctamente.</div>
+                    	<div id="error-delete-contract" class="alert alert-danger text-center" style="display: none;">Ocurrió un error durante la operación. Vuelva a intentarlo</div>
+				      <div class="modal-body">
+				      <p>¿Realmente desea eliminar todos los datos del contrato? Esta acción es <strong>irreversible</strong></p>
+				      </div>
+				      <div class="modal-footer">
+				      <form  method="POST" accept-charset="utf-8" id="eliminarContrato">
+				      	<input type="numer" name="cc-contrato-eliminar" id="cc-contrato-eliminar" hidden value="">
+				      </form>
+				        <button type="submit" class="btn btn-danger" value="confirm" form="eliminarContrato">Eliminar</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- Fin de Modal de confirmación de eliminación -->
+				</div>
+			</div>
+			<!-- Fin de sección de Modificación y eliminación de contratos -->
+		</div>
 
 		<!-- Ventana Modal de confirmación y error -->
 		<!-- Modal Exito-->

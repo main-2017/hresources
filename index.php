@@ -33,6 +33,7 @@ if (isset($_SESSION['user'])) {
 	<!-- Fin de Header -->
 	<!-- Contenido Principal -->
 	<div class="container">
+                 <div id="msg-error" class="alert alert-danger text-center" style="display: none;">Los datos ingresados no son correctos</div>
 	<br>
 	<br>
 		<section class="row">

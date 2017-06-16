@@ -32,7 +32,7 @@ if (isset($_SESSION['user'])) {
 			  <ul class="dropdown-menu">
 			    <li class="disabled"><a href="#">Panel</a></li>
 			    <li><a href="gestion.php">Alertas</a></li>
-			    <li><a href="new_user.php">Nuevo usuario</a></li>
+			    <li><a href="new_user.php">Gestión de usuarios</a></li>
 			    <li role="separator" class="divider"></li>
 			    <li><a href="../salir.php">Cerrar sesión</a></li>
 			  </ul>
@@ -50,8 +50,13 @@ if (isset($_SESSION['user'])) {
 <div class="tab-content">
 <!-- Sección Resumen -->
 	<section id="resumen" class="tab-pane fade in active">
-		<div class="table-responsive" id="tabla-resumen">
-		<!-- Tabla generada por el sistema -->
+		<div class="container">
+		<br>
+		<h4 class="text-center text-muted">Contratos próximos a vencer</h4>
+		<br>
+			<div class="table-responsive" id="tabla-resumen">
+			<!-- Tabla generada por el sistema -->
+			</div>
 		</div>
 	</section>
 	<!-- Fin de Sección Resumen -->

@@ -36,6 +36,10 @@ jQuery(document).on('submit', '#form-login', function(event){
 	})
 
 	.fail(function(answer){
+		$('#msg-error').slideDown('slow');
+				setTimeout(function(){
+					$('#msg-error').slideUp('slow');
+				},3000);
 		console.log(answer.responseText);
 		console.log("No fue posible conectar con el servidor");
 		$('#submit').val('Ingresar');
@@ -523,6 +527,125 @@ $(document).on('submit', '#eliminarContrato', function(event){
 		  },
 		  error: function(answer) {
 		    console.log(answer.responseText);
+		  }
+		});
+			
+});
+
+// Modificación y eliminación de usuarios
+
+// Búsqueda en tiempo real de usuarios
+$(buscar_usuarios());
+
+function buscar_usuarios(consulta){
+	jQuery.ajax({
+		url: '../buscar-usuarios.php',
+		type: 'POST',
+		dataType: 'html',
+		data: {consulta: consulta},
+	})
+	.done(function(respuesta) {
+		$("#tabla-usuario").html(respuesta);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+};
+
+$(document).on('keyup', '#searchUser', function(){
+	var contenido = $(this).val();
+	if (contenido != "") {
+		buscar_usuarios(contenido);
+	}else{
+		buscar_usuarios();
+	}
+});
+
+
+//Pasaje de datos a ventana modal
+$(document).on('click', '.modal-admin', function(){
+	var userCC = $(this).val();
+	$(".modal-body #ccAdmin").val(userCC);
+	loadAdminModal(userCC);
+});
+
+// Carga de datos en Formulario Modal
+function loadAdminModal(input){
+	jQuery.ajax({
+		url: '../load-admin-modal.php',
+		type: 'POST',
+		dataType: 'html',
+		data: {input: input},
+	})
+	.done(function(respuesta) {
+		$("#form-admin-modal").html(respuesta);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+};
+
+// Confirmación de cambios en usuarios
+
+jQuery(document).on('submit', '#form-admin-modal', function(event){
+	event.preventDefault();
+	jQuery.ajax({
+	  url: '../save-changes-admin.php',
+	  type: 'POST',
+	  dataType: 'json',
+	  data: $(this).serialize(),
+	  complete: function(respuesta) {
+	    if (!respuesta.error) {
+	    	$('#success-admin').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }else{
+	    	$('#error-admin').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }
+	  },
+	  success: function(answer) {
+	    console.log(answer.responseText);
+	  },
+	  error: function(xhr, textStatus, errorThrown) {
+	    //called when there is an error
+	  }
+	});
+	
+});
+
+// Eliminación de contratos
+
+$(document).on('click', '.eliminar-admin', function(){
+	var dellAdmin = $(this).val();
+	$('#cc-admin-eliminar').val(dellAdmin);
+	
+});
+
+$(document).on('submit', '#eliminaradmin', function(event){
+	event.preventDefault();
+		jQuery.ajax({
+		  url: '../eliminar-admin.php',
+		  type: 'POST',
+		  dataType: 'json',
+		  data: $(this).serialize(),
+		  complete: function(respuesta) {
+		    if (!respuesta.error) {
+		    	$('#success-delete-admin').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+	    }else{
+	    	$('#error-delete-admin').slideDown('slow', function(){
+	    		$(this).slideUp(3000);
+	    	});
+		    }
+		  },
+		  success: function(data, textStatus, xhr) {
+		    //called when successful
+		  },
+		  error: function(answer) {
+		    
 		  }
 		});
 			

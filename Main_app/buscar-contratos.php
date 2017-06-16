@@ -22,8 +22,13 @@
 					<td><input type='date' name='fecha-fin[]' value='".$fila['Fecha_Fin']."' readonly style='border:none;'></td>
 					<td><input type='text' name='tipo[]' value='".$fila['Tipo']."' readonly style='border:none;'></td>";
 					
-
+					if ($_SESSION['user']['Rol'] == 'Administrador') {
 					$salida.="<td><button type='button' class='open-modal-contract btn btn-primary' name='modificar[]' value='".$fila['ID']."' data-toggle='modal' data-target='#modal-modificar-contrato'>Modificar</button></td><td><button type='button' class='eliminar-contrato btn btn-danger' data-toggle='modal' data-target='#advertenciaModalContratos' name='eliminar[]' value='".$fila['ID']."'>Eliminar</button></td></tr>";
+					}elseif ($_SESSION['user']['Rol'] == 'Matriculador') {
+						$salida.="<td><button type='button' class='open-modal-contract btn btn-primary' name='modificar[]' value='".$fila['ID']."' data-toggle='modal' data-target='#modal-modificar-contrato'>Modificar</button></td></tr>";
+					}else{
+						$salida.="<tr>";
+					}
 			}
 		$salida.="</tbody></table>";
 	}else{

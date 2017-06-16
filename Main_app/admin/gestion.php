@@ -28,7 +28,7 @@ if (isset($_SESSION['user'])) {
 			  <ul class="dropdown-menu">
 			    <li><a href="index.php">Panel</a></li>
 			    <li class="disabled"><a href="gestion.php">Alertas</a></li>
-			    <li><a href="new_user.php">Nuevo usuario</a></li>
+			    <li><a href="new_user.php">Gestión de usuarios</a></li>
 			    <li role="separator" class="divider"></li>
 			    <li><a href="../salir.php">Cerrar sesión</a></li>
 			  </ul>

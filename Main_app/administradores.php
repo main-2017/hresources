@@ -10,13 +10,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQU
 	$rep_pass = $mysqli->real_escape_string($_POST['password-repeat']);
 	$email = $mysqli->real_escape_string($_POST['email']);
 	$rol = $mysqli->real_escape_string($_POST['rol']);
-
+	$pass_cifrado = "";	
 	$nombre_completo = $nombre." ".$apellido;
 // Comparación de contraseñas
 	if (strcmp($pass, $rep_pass) !== 0) {
 		echo json_encode(array('error' => true, 'msg' => "Las contraseñas no coinciden"));
 	}else{
-		$carga = $mysqli->query("INSERT INTO administradores(CC, Nombre, Password, Email, Rol) VALUES('".$cc."', '".$nombre_completo."', '".$pass."', '".$email."', '".$rol."');");
+		$pass_cifrado = password_hash($pass, PASSWORD_DEFAULT);
+		$carga = $mysqli->query("INSERT INTO administradores(CC, Nombre, Password, Email, Rol) VALUES('".$cc."', '".$nombre_completo."', '".$pass_cifrado."', '".$email."', '".$rol."');");
 		if ($carga) {
 			echo json_encode(array('error' => false));
 		}else{

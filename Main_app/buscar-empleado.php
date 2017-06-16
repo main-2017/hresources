@@ -24,8 +24,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQU
 					<td><input type='text' name='nacionalidad[]' value='".$fila['Domicilio']."' readonly style='border:none;'></td>
 					<td><input type='text' name='estado[]' value='".$fila['Estado']."' readonly style='border:none;'></td>";
 					
-
+					if ($_SESSION['user']['Rol'] == 'Administrador') {
 					$salida.="<td><button type='button' class='open-modal btn btn-primary' name='modificar[]' value='".$fila['CC']."' data-toggle='modal' data-target='#modal-modificar-empleado'>Modificar</button></td><td><button type='button' class='eliminar-empleado btn btn-danger' data-toggle='modal' data-target='#advertenciaModal' name='eliminar[]' value='".$fila['CC']."'>Eliminar</button></td></tr>";
+						
+					}elseif ($_SESSION['user']['Rol'] == 'Matriculador') {
+						$salida.="<td><button type='button' class='open-modal btn btn-primary' name='modificar[]' value='".$fila['CC']."' data-toggle='modal' data-target='#modal-modificar-empleado'>Modificar</button></td></tr>";
+					}else{
+						$salida.="</tr>";
+					}
 			}
 		$salida.="</tbody></table>";
 	}else{

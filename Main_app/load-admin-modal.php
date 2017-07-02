@@ -15,11 +15,11 @@
 					</div>
 					<div class='form-group'>
 						<label class='text-muted' for='nombre'>Nombre y Apellido</label>
-						<input type='text' name='nombre' class='form-control' id='nombre' pattern='[A-Za-z0-9 ]{3,100}' value='".$array['Nombre']."'>
+						<input type='text' name='nombre' class='form-control' id='nombre' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{2,100}' value='".$array['Nombre']."'>
 					</div>
 					<div class='form-group'>
 						<label class='text-muted' for='email'>Email</label>
-						<input type='email' name='email' class='form-control' id='email' value='".$array['Email']."'>
+						<input type='email' name='email' class='form-control' id='email' pattern='^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$' value='".$array['Email']."'>
 					</div>";
 					
 					$salida.= "<br>
@@ -54,6 +54,4 @@
 
 	}
 $mysqli->close();
-
-
  ?>

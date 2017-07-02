@@ -25,6 +25,7 @@ jQuery(document).on('submit', '#form-login', function(event){
 				location.href = 'Main_app/director/';
 			} else if (serverAnswer.rol == 'Matriculador') {
 				location.href = 'Main_app/matriculador/';
+		}
 			}else{
 				$('#msg-error').slideDown('slow');
 				setTimeout(function(){
@@ -32,15 +33,10 @@ jQuery(document).on('submit', '#form-login', function(event){
 				},3000);
 				$('#submit').val('Ingresar');
 			}
-		}
 	})
 
 	.fail(function(answer){
-		$('#msg-error').slideDown('slow');
-				setTimeout(function(){
-					$('#msg-error').slideUp('slow');
-				},3000);
-		console.log(answer.responseText);
+		console.log(answer);
 		console.log("No fue posible conectar con el servidor");
 		$('#submit').val('Ingresar');
 	})
@@ -59,24 +55,29 @@ jQuery(document).on('submit', '#ingresar-empleado', function(event){
 	  type: 'POST',
 	  dataType: 'json',
 	  data: $(this).serialize(),
-	  complete: function(resp) {
-	    console.log("Script corriendo...");
-	    if (!resp.error) {
-	    	$("#exito").modal("show");
+	  beforeSend: function(){
+	  	console.log("enviando");
+	  	}
+	})
+	.done(function(serverAnswer){//serverAnswer es la variable que contiene la respuesta del servidor
+		if (!serverAnswer.error){
+			console.log(serverAnswer);
+			console.log("envio exitoso");
+			$('#exitoEmpleado').modal('show');					
 		}else{
-			$("#error").modal("show");
+			$('#errorEmpleado').modal('show');
 		}
-	  },
-	  success: function(respuesta) {
-	  	if (!respuesta.error) {
-	    $("#exito").modal("show");
-		}
-	  },
-	  error: function(anser) {
-	    console.log(anser);
-	  }
+	})
+
+	.fail(function(answer){
+		console.log(answer.responseText);
+		console.log("No fue posible conectar con el servidor");
+		
+	})
+
+	.always(function(){
+		console.log("Script finalizado");
 	});
-	
 	
 });
 
@@ -113,7 +114,7 @@ $(document).ready(function() {
 	var negacion = "No coinciden las contraseñas";
 	var vacio = "La contraseña no puede estar vacía";
 	//oculto por defecto el elemento span
-	var span = $('<span></span>').insertAfter(pass2);
+	var span = $('<div class="alert" role="alert"></div>').insertAfter(pass2);
 	span.hide();
 	//función que comprueba las dos contraseñas
 	function coincidePassword(){
@@ -123,19 +124,19 @@ $(document).ready(function() {
 	span.show().removeClass();
 	//condiciones dentro de la función
 	if(valor1 != valor2){
-	span.text(negacion).addClass('negacion');
+	span.text(negacion).addClass('alert-danger');
 	$('#enviar').addClass('disabled');	
 	}
 	if(valor1.length==0 || valor1==""){
-	span.text(vacio).addClass('negacion');
+	span.text(vacio).addClass('alert-danger');
 	$('#enviar').addClass('disabled');	
 	}
 	if(valor1.length<4 || valor1.length>20){
-	span.text(longitud).addClass('negacion');
+	span.text(longitud).addClass('alert-danger');
 	$('#enviar').addClass('disabled');
 	}
 	if(valor1.length!=0 && valor1==valor2){
-	span.text(confirmacion).removeClass("negacion").addClass('confirmacion');
+	span.text(confirmacion).removeClass("alert-danger").addClass('alert-success');
 	$('#enviar').removeClass('disabled');
 	}
 	}
@@ -154,17 +155,19 @@ jQuery.ajax({
   dataType: 'json',
   data: $(this).serialize(),
   complete: function(respuesta) {
-    if (!respuesta.error) {
-    	$('#exito_admin').modal("show");
-    }else{
-    	$('#error_admin').modal("show");
-    }
+    console.log("Ajax Request enviado");
   },
-  success: function(data, textStatus, xhr) {
-    //called when successful
+  success: function(data) {
+  	console.log("Comprueba valor de error");
+  	if (data.error === true) {
+  		$('#error_admin').modal("show");
+  	}else{
+  		$('#exito_admin').modal("show");
+  	}
   },
-  error: function(xhr, textStatus, errorThrown) {
-    //called when there is an error
+  error: function(rta) {
+    
+    
   }
 });
 });
@@ -634,7 +637,7 @@ $(document).on('submit', '#eliminaradmin', function(event){
 		    if (!respuesta.error) {
 		    	$('#success-delete-admin').slideDown('slow', function(){
 	    		$(this).slideUp(3000);
-	    	});
+	    		});
 	    }else{
 	    	$('#error-delete-admin').slideDown('slow', function(){
 	    		$(this).slideUp(3000);
@@ -649,4 +652,9 @@ $(document).on('submit', '#eliminaradmin', function(event){
 		  }
 		});
 			
+});
+
+$(document).on('click', '.btnCerrar', function(){
+	$('body').removeClass('modal-open');
+	$('.modal-backdrop').remove();
 });

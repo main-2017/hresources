@@ -9,6 +9,8 @@ if (isset($_SESSION['user'])) {
 	}elseif($_SESSION['user']['Rol'] == 'Matriculador'){
 		header('Location: ../matriculador/');
 	}
+}else{
+	header('Location: ../../');
 }
 ?>
 <!DOCTYPE html>
@@ -72,10 +74,9 @@ if (isset($_SESSION['user'])) {
 				<br>
 				<h4 class="text-center text-muted">Ingreso de nuevos empleados</h4>
 				<br>
-					<form class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" role="form" id="ingresar-empleado" action="" method="POST">
+					<form class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" role="form" id="ingresar-empleado" method="POST">
 						<div class="form-group">
 							<input type="number" name="cc" class="form-control" id="cc-empleado" required placeholder="CC" pattern="[0-9]{8,10}">
-
 						</div>
 						<div class="form-group">
 							<input type="text" name="nombre" class="form-control" id="nombre-empleado" required placeholder="Nombre" pattern="[A-Za-z ]{2,50}">
@@ -88,6 +89,13 @@ if (isset($_SESSION['user'])) {
 						<div class="form-group">
 							<input type="text" name="domicilio" class="form-control" id="domicilio-empleado" placeholder="Domicilio" required pattern="[A-Za-z0-9 ]{2,70}">
 							<input type="text" name="nacionalidad" class="form-control" id="nacionalidad-empleado" placeholder="Nacionalidad" required pattern="[A-Za-z ]{2,50}">
+						</div>
+						<div class="form-group">
+							<input type="email" name="email" class="form-control" id="email-empleado" placeholder="Email" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">													
+						</div>
+						<div class="form-group">
+							<input type="text" name="departamento" class="form-control" id="departamento-empleado" placeholder="Departamento" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{2,100}">
+							<input type="text" name="ciudad" class="form-control" id="ciudad-empleado" placeholder="Ciudad" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{2,100}">
 						</div>
 						<br>
 						<div class="radio">
@@ -106,6 +114,10 @@ if (isset($_SESSION['user'])) {
 							<option value="Contrato terminado">Contrato terminado</option>
 							<option value="Reingreso">Reingreso</option>
 						</select>
+						<br>
+						<div class="form-group">
+							<textarea  class="form-control" name="observaciones" placeholder="Observaciones" rows="5" maxlength="1000" resize="none"></textarea>
+						</div>
 						<br>
 						<hr>
 						<div style="float: right;">
@@ -189,11 +201,11 @@ if (isset($_SESSION['user'])) {
 		</div>
 		<!-- Ventana Modal de confirmación y error -->
 		<!-- Modal Exito-->
-		<div class="modal fade" id="exito" tabindex="-1" role="dialog" aria-labelledby="exitoModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exitoEmpleado" tabindex="-1" role="dialog" aria-labelledby="exitoEmpleadoLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header" style="background-color: #337ab7;">
-		        <h4 class="modal-title" id="exitoModalLabel" style="color: #FFF;">Carga Exitosa</h4>
+		        <h4 class="modal-title" id="exitoEmpleadoLabel" style="color: #FFF;">Carga Exitosa</h4>
 		       
 		      </div>
 		      <div class="modal-body">
@@ -208,15 +220,14 @@ if (isset($_SESSION['user'])) {
 		<!-- Fin de ventana Modal Exito-->
 
 		<!-- Modal Error -->
-		<div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+		<div class="modal fade" id="errorEmpleado" tabindex="-1" role="dialog" aria-labelledby="errorEmpleadoLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header" style="background-color: red;">
-		        <h4 class="modal-title" id="errorModalLabel" style="color: #FFF;">Error de carga</h4>
-		       
+		        <h4 class="modal-title" id="errorEmpleadoLabel" style="color: #FFF;">Error de carga</h4>
 		      </div>
 		      <div class="modal-body">
-		        <p>Ocurrió un error durante la carga de datos. Reinténtelo</p>
+		        <p>Ocurrió un error durante la carga de datos. Compruebe que el número de CC ingresado no exista en la base de datos y reinténtelo</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

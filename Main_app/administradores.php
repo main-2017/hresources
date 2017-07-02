@@ -12,8 +12,15 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQU
 	$rol = $mysqli->real_escape_string($_POST['rol']);
 	$pass_cifrado = "";	
 	$nombre_completo = $nombre." ".$apellido;
-// Comparación de contraseñas
-	if (strcmp($pass, $rep_pass) !== 0) {
+// Comparación de Email
+$qemail = $mysqli->query("SELECT CC, Email FROM administradores WHERE Email = '".$email."';");
+// Comnparación de CC
+$qcc = $mysqli->query("SELECT CC, Email FROM administradores WHERE CC = '".$cc."';");
+if ($qcc->num_rows > 0) {
+	echo json_encode(array('error'=>true, 'msg' => "El CC ya existe"));
+}elseif ($qemail->num_rows > 0) {
+	echo json_encode(array('error'=>true, 'msg' => "El Email ya existe"));
+}elseif (strcmp($pass, $rep_pass) !== 0) {
 		echo json_encode(array('error' => true, 'msg' => "Las contraseñas no coinciden"));
 	}else{
 		$pass_cifrado = password_hash($pass, PASSWORD_DEFAULT);
@@ -24,7 +31,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQU
 			echo json_encode(array('error' => true));
 		}
 	}
-
 }
 $mysqli->close();
 ?>

@@ -35,7 +35,17 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQU
 					</div>
 					<div class='form-group'>
 						 <label class='text-muted' for='nacionalidad'>Nacionalidad</label>
-						 <input type='text' name='nacionalidad' class='form-control' id='name='nacionalidad' pattern='[A-Za-z ]{2,70}' value='".$array['Nacionalidad']."'>
+						 <input type='text' name='nacionalidad' class='form-control' id='nacionalidad' pattern='[A-Za-z ]{2,70}' value='".$array['Nacionalidad']."'>
+					</div>
+					<div class='form-group'>
+						<label class='text-muted' for='email'>Email</label>
+						<input type='email' name='email' class='form-control' id='email' pattern='^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$' value='".$array['Email']."'>
+					</div>
+					<div class='form-group>
+						<label class='text-muted' for='departamento'>Departamento</label>
+						<input type='text' name='departamento' class='form-control' id='departamento' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{2,100}' value='".$array['Departamento']."'>
+						<label class='text-muted' for='ciudad'>Ciudad</label>
+						<input type='text' name='ciudad' class='form-control' id='ciudad' pattern='[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{2,100}' value='".$array['Ciudad']."'>
 					</div>
 					<div class='radio'>
 						<h5 class='text-muted text-center'>Sexo</h5>";
@@ -95,6 +105,13 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQU
 									<option value='Contrato terminado'>Contrato terminado</option>
 								</select>";
 					}
+					$salida.= "<br>
+								<div class='form-group'>
+									<label class='text-muted' for='observaciones'>Observaciones</label>
+									<br>
+									<textarea class='form-control' name='observaciones' rows='5' maxlength='1000' resize='none'>".$array['Observaciones']."</textarea>
+								</div>";
+
 								
 			}else{
 				$salida = "No hay datos para mostrar";

@@ -11,15 +11,19 @@
 	$celular = $mysqli->real_escape_string($_POST['celular']);
 	$domicilio = $mysqli->real_escape_string($_POST['domicilio']);
 	$nacionalidad = $mysqli->real_escape_string($_POST['nacionalidad']);
+	$email = $mysqli->real_escape_string($_POST['email']);
+	$depto = $mysqli->real_escape_string($_POST['departamento']);
+	$ciudad = $mysqli->real_escape_string($_POST['ciudad']);
+	$observaciones = $mysqli->real_escape_string($_POST['observaciones']);
 	$sexo = $mysqli->real_escape_string($_POST['sexo']);
 	$estado = $mysqli->real_escape_string($_POST['estado']);
 
-	$query = $mysqli->query("UPDATE empleados SET CC = '$cc', Nombre = '$nombre', Apellido = '$apellido', Telefono = '$telefono', Celular = '$celular', Domicilio = '$domicilio', Nacionalidad = '$nacionalidad', Sexo = '$sexo', Estado = '$estado' WHERE CC = '$cc'");
+	$query = $mysqli->query("UPDATE empleados SET CC = '$cc', Nombre = '$nombre', Apellido = '$apellido', Telefono = '$telefono', Celular = '$celular', Domicilio = '$domicilio', Nacionalidad = '$nacionalidad', Email = '$email', Departamento = '$depto', Ciudad = '$ciudad', Observaciones = '$observaciones', Sexo = '$sexo', Estado = '$estado' WHERE CC = '$cc'");
 
 if ($query) {
- 	echo json_encode(array('error' => false));
+ 	echo json_encode(array('error'=>false));
  }else{
- 	echo json_encode(array('error' => true));
+ 	echo json_encode(array('error'=>true));
  }
 $mysqli->close();
  }

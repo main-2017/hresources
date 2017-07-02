@@ -6,6 +6,8 @@ if (isset($_SESSION['user'])) {
 	}elseif($_SESSION['user']['Rol'] == 'Matriculador'){
 		header('Location: ../matriculador/');
 	}
+}else{
+	header('Location: ../../');
 }
 ?>
 <!DOCTYPE html>
@@ -54,13 +56,13 @@ if (isset($_SESSION['user'])) {
 						<input type="number" name="cc" class="form-control" id="cc-admin" required placeholder="CC" pattern="[0-9]{8,10}">
 					</div>
 					<div class="form-group">
-						<input type="text" name="nombre" class="form-control" id="nombre-admin" required placeholder="Nombre" pattern="[A-Za-z ]{2,50}">
-						<input type="text" name="apellido" class="form-control" id="apellido-admin" required placeholder="Apellido" autocomplete="off" pattern="[A-Za-z ]{2,50}">
+						<input type="text" name="nombre" class="form-control" id="nombre-admin" required placeholder="Nombre" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{2,50}">
+						<input type="text" name="apellido" class="form-control" id="apellido-admin" required placeholder="Apellido" autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+{2,50}">
 					</div>
 					<div class="form-group">
-						<input type="password" name="password" class="form-control" id="password-admin" placeholder="Contraseña" autocomplete="off" pattern="[A-Za-z0-9.]{4,20}">
-						<input type="password" name="password-repeat" class="form-control" id="password-repeat" placeholder="Repetir contraseña" autocomplete="off" pattern="[A-Za-z0-9.]{4,20}">
-						<input type="email" name="email" class="form-control" id="email-admin" placeholder="E-mail" autocomplete="off" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+						<input type="password" name="password" class="form-control" id="password-admin" placeholder="Contraseña" autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9.!?-\s]{4,20}">
+						<input type="password" name="password-repeat" class="form-control" id="password-repeat" placeholder="Repetir contraseña" autocomplete="off" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9.!?-\s]{4,20}">
+						<input type="email" name="email" class="form-control" id="email-admin" placeholder="E-mail" autocomplete="off" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
 					</div>
 					<br>			
 					<h5 class="text-muted text-center">Tipo de usuario</h5>
@@ -105,7 +107,7 @@ if (isset($_SESSION['user'])) {
 		       
 		      </div>
 		      <div class="modal-body">
-		        <p>Ocurrió un error durante la carga de datos. Reinténtelo</p>
+		        <p>Ocurrió un error durante la carga de datos. Compruebe que el número de CC y el Email ingresados no existan en la base de datos y reinténtelo</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -132,11 +134,11 @@ if (isset($_SESSION['user'])) {
 			</div>
 		</div>
 		<!-- Modal con Formulario de edición de usuario -->
-				<div id="modal-modificar-admin" class="modal fade" role="dialog">
+				<div id="modal-modificar-admin" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
-				        <h5 class="modal-title">Modificar datos de usuarios</h5>
+				        <h5 class="modal-title" id="updateModalLabel">Modificar datos de usuarios</h5>
 				        <button type="button" class="close" data-dismiss="modal">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
@@ -153,7 +155,7 @@ if (isset($_SESSION['user'])) {
 				        </form>
 				      </div>
 				      <div class="modal-footer">
-				        <input type="submit" form="form-admin-modal" class="btn btn-primary" value="Guardar cambios">
+				        <input type="submit" form="form-admin-modal" class="btn btn-primary btnCerrar" value="Guardar cambios">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				      </div>
 				    </div>
@@ -161,11 +163,11 @@ if (isset($_SESSION['user'])) {
 				</div>
 				<!-- Fin de Modal con Formulario de edición de usuario -->
 				<!-- Modal de confirmación de eliminación -->
-				<div id="advertenciaModalAdmin" class="modal fade" role="dialog">
+				<div id="advertenciaModalAdmin" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header" style="background-color: red;">
-				        <h5 class="modal-title" style="color: #FFF;">¡Atención!</h5>
+				        <h5 class="modal-title" id="deleteModalLabel" style="color: #FFF;">¡Atención!</h5>
 				        <button type="button" class="close" data-dismiss="modal">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
@@ -177,10 +179,10 @@ if (isset($_SESSION['user'])) {
 				      </div>
 				      <div class="modal-footer">
 				      <form  method="POST" accept-charset="utf-8" id="eliminaradmin">
-				      	<input type="numer" name="cc-admin-eliminar" id="cc-admin-eliminar" hidden value="">
+				      	<input type="number" name="cc-admin-eliminar" id="cc-admin-eliminar" hidden value="">
 				      </form>
 				        <button type="submit" class="btn btn-danger" value="confirm" form="eliminaradmin">Eliminar</button>
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="button" class="btn btn-secondary btnCerrar" data-dismiss="modal">Cerrar</button>
 				      </div>
 				    </div>
 				  </div>

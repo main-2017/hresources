@@ -1,4 +1,3 @@
-<!-- Módulo para el ingreso y registro de nuevos empleados -->
  <?php 
  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 	require 'conexion.php';
@@ -11,16 +10,20 @@
 	$celular = $mysqli->real_escape_string($_POST['celular']);
 	$domicilio = $mysqli->real_escape_string($_POST['domicilio']);
 	$nacionalidad = $mysqli->real_escape_string($_POST['nacionalidad']);
+	$email = $mysqli->real_escape_string($_POST['email']);
+	$depto = $mysqli->real_escape_string($_POST['departamento']);
+	$ciudad = $mysqli->real_escape_string($_POST['ciudad']);
+	$observaciones = $mysqli->real_escape_string($_POST['observaciones']);
 	$sexo = $mysqli->real_escape_string($_POST['sexo']);
 	$estado = $mysqli->real_escape_string($_POST['estado']);
+	
+	$ingreso = $mysqli->query("INSERT INTO empleados(CC, Nombre, Apellido, Telefono, Celular, Domicilio, Nacionalidad, Email, Departamento, Ciudad, Observaciones, Sexo, Estado) VALUES('".$cc."', '".$nombre."', '".$apellido."', '".$telefono."', '".$celular."', '".$domicilio."', '".$nacionalidad."', '".$email."', '".$depto."', '".$ciudad."', '".$observaciones."', '".$sexo."', '".$estado."');");
+	if ($ingreso) {
+	 	echo json_encode(array('error' => False));
+	 }else{
+	 	echo json_encode(array('error' => True));
+	 }
+}
 
-	$ingreso = $mysqli->query("INSERT INTO empleados(CC, Nombre, Apellido, Telefono, Celular, Domicilio, Nacionalidad, Sexo, Estado) VALUES('".$cc."', '".$nombre."', '".$apellido."', '".$telefono."', '".$celular."', '".$domicilio."', '".$nacionalidad."', '".$sexo."', '".$estado."');");
- }
-
- if ($ingreso) {
- 	echo json_encode(array('error' => false));
- }else{
- 	echo json_encode(array('error' => true));
- }
-$mysqli->close();
+ $mysqli->close();
  ?>

@@ -7,6 +7,8 @@ if (isset($_SESSION['user'])) {
 	}elseif($_SESSION['user']['Rol'] == 'Director'){
 		header('Location: ../director/');
 	}
+}else{
+	header('Location: ../../');
 }
 ?>
 <!DOCTYPE html>

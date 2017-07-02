@@ -38,7 +38,7 @@ if (isset($_SESSION['user'])) {
 	<br>
 		<section class="row">
 			<div class="col-lg-offset-3 col-lg-8 col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
-				<form class="form col-lg-8 col-md-8 col-xs-12" rol="form" id="form-login">
+				<form class="form col-lg-8 col-md-8 col-xs-12" rol="form" id="form-login" method="POST">
 				<h4 class="text-center text-muted">Inicie sesión</h4>
 				<br>
 					<div class="form-group">

@@ -253,8 +253,6 @@ if (isset($_SESSION['user'])) {
 					<form id="cargar-contrato" class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" method="POST">
 						<div class="form-group">
 							<h5 class="text-center text-muted">Empleado</h5>
-							<!-- <div id="select-contratos"></div> -->
-							<!-- <input type="number" name="cc" list="sugest-cc" placeholder="Nº de CC" class="form-control"> -->
 							<select name="cc" class="form-control" id="select-contratos">
 								<!-- Options generados dinámicamente -->
 							</select>

@@ -49,6 +49,30 @@
 								</select>";
 					}
 
+					$salida.="<br>
+								<h5 class='text-muted text-center'>Alerta de finalización de contrato</h5>";
+
+					if ((strtotime($array['Fecha_Fin']) - (strtotime($array['Alerta1']))) == 2592000) {
+									
+					$salida.="<select class='form-control' name='Alerta'>
+									<option value='2592000'>30 días antes</option>
+									<option value='864000'>10 días antes</option>
+									<option value='172800'>2 días antes</option>
+								</select>";
+					}elseif ((strtotime($array['Fecha_Fin']) - (strtotime($array['Alerta1']))) == 864000) {
+						$salida.="<select class='form-control' name='Alerta'>
+									<option value='864000'>10 días antes</option>
+									<option value='2592000'>30 días antes</option>
+									<option value='172800'>2 días antes</option>
+								</select>";
+					}else{
+						$salida.="<select class='form-control' name='Alerta'>
+									<option value='172800'>2 días antes</option>
+									<option value='2592000'>30 días antes</option>
+									<option value='864000'>10 días antes</option>
+								</select>";
+					}
+
 										
 			}else{
 				$salida = "No hay datos para mostrar";

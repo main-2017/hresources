@@ -66,14 +66,7 @@
 	}else{
 		echo json_encode(array('error' => true));	
 	}
-	
 
-	// $alerta = strtotime($fechaf);
-	// if ($ingreso) {
-	// 	echo json_encode(array('error' => false));
-	// }else{
-	// 	echo json_encode(array('error' => true));	
-	// }
  }
 $mysqli->close();
 

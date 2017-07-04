@@ -82,28 +82,30 @@ jQuery(document).on('submit', '#ingresar-empleado', function(event){
 });
 
 // Envío de datos de contratos
-jQuery(document).on('submit', '#ingresar-contrato', function(event){
+jQuery(document).on('submit', '#cargar-contrato', function(event){
 	event.preventDefault();
-jQuery.ajax({
-  url: '../contratos.php',
-  type: 'POST',
-  dataType: 'json',
-  data: $(this).serialize(),
-  complete: function(resp) {
-    if (!resp.error) {
-    	$('#exito_contrato').modal("show");
-    }else{
-    	$('#error_contrato').modal("show");
-    }
-  },
-  success: function(respuesta) {
+	jQuery.ajax({
+	  url: '../contratos.php',
+	  type: 'POST',
+	  dataType: 'json',
+	  data: $(this).serialize(),
+	  beforeSend: function(){
+		  	console.log("enviando");
+		  	}
+		})
+		.done(function(servidorResp){
+			if (!servidorResp.error){
+				$('#exito_contrato').modal('show');					
+			}else{
+				$('#error_contrato').modal('show');
+			}
+		})
+		.fail(function(sanswer){
+			console.log("Error recibido: " + sanswer);
+			
+		})	
+});
 
-  },
-  error: function(rpta) {
-   
-  }
-});
-});
 // Comprobación de coincidencia de contraseñas
 $(document).ready(function() {
 	//variables

@@ -250,30 +250,30 @@ if (isset($_SESSION['user'])) {
 					<br>
 					<h4 class="text-center text-muted">Carga de nuevos contratos</h4>
 					<br>
-					<form class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" method="POST" role="form" id="ingresar-contrato" accept="utf-8" action="../cargar-contrato.php">
+					<form id="cargar-contrato" class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" method="POST">
 						<div class="form-group">
-						<h5 class="text-center text-muted">Nº de CC</h5>
-						<div id="select-contratos"></div>
-						<input type="number" name="cc" list="sugest-cc" placeholder="Nº de CC" class="form-control">
-						<!-- <select name="cc" class="form-control" id="select-contratos">
-							<option value="1">Seleccione un Nº de CC</option> -->
-						</select>
+							<h5 class="text-center text-muted">Empleado</h5>
+							<!-- <div id="select-contratos"></div> -->
+							<!-- <input type="number" name="cc" list="sugest-cc" placeholder="Nº de CC" class="form-control"> -->
+							<select name="cc" class="form-control" id="select-contratos">
+								<!-- Options generados dinámicamente -->
+							</select>
 						</div>
-						<div class="form-group">
-						<br>
-						<h5 class="text-muted text-center">Fechas inicio y finalización de contrato</h5>
-						<br>
-								<input type="date" name="Fecha_Inicio" class="form-control" id="Fecha_Inicio" required placeholder="Fecha de inicio del contrato. Formato 'AAAA/MM/DD'">
-								
-								<input type="date" name="Fecha_Fin" class="form-control" id="Fecha_Fin" required placeholder="Fecha de Finalización del contrato. Formato 'AAAA/MM/DD'">
-						</div>
-						<br>
 						<h5 class="text-muted text-center">Tipo de contrato</h5>
 						<select class="form-control" name="tipo">
 							<option value="Temporal 3 meses">Temporal 3 meses</option>
 							<option value="Temporal 1 año">Temporal 1 año</option>
 							<option value="Indefinido">Indefinido</option>
 						</select>
+						<div class="form-group">
+							<br>
+							<h5 class="text-muted text-center">Fechas inicio y finalización de contrato</h5>
+							<br>
+							<input type="date" name="Fecha_Inicio" class="form-control" id="Fecha_Inicio" required placeholder="Fecha de inicio del contrato. Formato 'AAAA/MM/DD'">
+									
+							<input type="date" name="Fecha_Fin" class="form-control" id="Fecha_Fin" required placeholder="Fecha de Finalización del contrato. Formato 'AAAA/MM/DD'">
+						</div>
+						<br>
 						
 						<br>
 						<h5 class="text-muted text-center">Alerta de finalización de contrato</h5>
@@ -395,7 +395,7 @@ if (isset($_SESSION['user'])) {
 		       
 		      </div>
 		      <div class="modal-body">
-		        <p>Ocurrió un error durante la carga de datos. Reinténtelo</p>
+		        <p>Ocurrió un error durante la carga de datos. Compruebe que las fechas de inicio y finalización de contrato se correspondan con el tipo de contrato definido y reinténtelo</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

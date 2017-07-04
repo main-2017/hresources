@@ -3,26 +3,77 @@
  	require 'conexion.php';
  	session_start();
  	$mysqli->set_charset('utf8');
-	$cc = $mysqli->real_escape_string($_POST['cc']);
-	$fechai = $mysqli->real_escape_string($_POST['Fecha_Inicio']);
-	$fechaf = $mysqli->real_escape_string($_POST['Fecha_Fin']);
-	$aviso = $mysqli->real_escape_string($_POST['Alerta']);
-	$tipo = $mysqli->real_escape_string($_POST['tipo']);
 
-$alerta = strtotime($fechaf);
-$dif_alerta =  ($alerta - $aviso);
-$aviso_result = date('Y-m-d',$dif_alerta);
+ 	$fechai = '';
+ 	$fechaf = '';
+ 	$aviso = '';
+ 	$tipo ='';
+ 	$ingreso ='';
+ 	$cc = '';
+ 	$bandera = false;
+ 	
+ 	if (isset($_POST['cc'])) {
+		$cc = $mysqli->real_escape_string($_POST['cc']);
+		
+ 	}
 
-echo $aviso_result;
+ 	if (isset($_POST['Fecha_Inicio'])) {
+		$fechai = $mysqli->real_escape_string($_POST['Fecha_Inicio']);
+ 		
+ 	}
 
-$ingreso = $mysqli->query("INSERT INTO contratos(CC, Fecha_Inicio, Fecha_Fin, Tipo, Alerta1) VALUES('".$cc."', '".$fechai."', '".$fechaf."', '".$tipo."', '".$aviso_result."');");
+ 	if (isset($_POST['Fecha_Fin'])) {
+		$fechaf = $mysqli->real_escape_string($_POST['Fecha_Fin']);
+ 		
+ 	}
 
-if ($ingreso) {
-	echo json_encode(array('error' => false));
-}else{
-	echo json_encode(array('error' => true));	
-}
+ 	if (isset($_POST['Alerta'])) {
+		$aviso = $mysqli->real_escape_string($_POST['Alerta']);
+ 		
+ 	}
 
+ 	if (isset($_POST['tipo'])) {
+		$tipo = $mysqli->real_escape_string($_POST['tipo']);
+ 		
+ 	}
+
+
+
+	$final_int = strtotime($fechaf);
+	$inicial_int = strtotime($fechai);
+
+	$dif_alerta =  ($final_int - $aviso);
+	$aviso_result = date('Y-m-d',$dif_alerta);
+
+	if (($tipo == "Temporal 3 meses") && (($final_int - $inicial_int) <= 7948800)) {
+			$bandera = true;
+	}elseif (($tipo == "Temporal 1 año") && (($final_int - $inicial_int) <= 31622400)) {
+			$bandera = true;
+	}elseif ($tipo == "Indefinido") {
+		$bandera = true;
+	}else{
+		$bandera = false;
+	}
+
+	if ($bandera) {
+		$ingreso = $mysqli->query("INSERT INTO contratos(CC, Fecha_Inicio, Fecha_Fin, Tipo, Alerta1) VALUES('".$cc."', '".$fechai."', '".$fechaf."', '".$tipo."', '".$aviso_result."');");
+	}else{
+		$ingreso = false;
+	}
+
+	if ($ingreso) {
+		echo json_encode(array('error' => false));
+	}else{
+		echo json_encode(array('error' => true));	
+	}
+	
+
+	// $alerta = strtotime($fechaf);
+	// if ($ingreso) {
+	// 	echo json_encode(array('error' => false));
+	// }else{
+	// 	echo json_encode(array('error' => true));	
+	// }
  }
 $mysqli->close();
 

@@ -160,7 +160,7 @@ if (isset($_SESSION['user'])) {
 				      </div>
 				      <div class="modal-footer">
 				        <input type="submit" form="form-data-modal" class="btn btn-primary" value="Guardar cambios">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="self.parent.location.reload();">Cerrar</button>
 				      </div>
 				    </div>
 				  </div>
@@ -184,7 +184,7 @@ if (isset($_SESSION['user'])) {
 		        <p>Datos cargados correctamente</p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="self.parent.location.reload();">Cerrar</button>
 		      </div>
 		    </div>
 		  </div>
@@ -298,7 +298,7 @@ if (isset($_SESSION['user'])) {
 						      </div>
 						      <div class="modal-footer">
 						        <input type="submit" form="form-contract-modal" class="btn btn-primary" value="Guardar cambios">
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="self.parent.location.reload();">Cerrar</button>
 						      </div>
 						    </div>
 						  </div>
@@ -322,7 +322,7 @@ if (isset($_SESSION['user'])) {
 		        <p>Datos cargados correctamente</p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="self.parent.location.reload();">Cerrar</button>
 		      </div>
 		    </div>
 		  </div>

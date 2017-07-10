@@ -24,11 +24,11 @@ if (isset($_SESSION['user'])) {
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-			      <h4 class="navbar-brand"><strong>h</strong>Resources</h4>
+			      <h4 class="navbar-brand" id="text-logo"><strong>h</strong>Resources</h4>
 			</div>
 			<br>
-			<div class="btn-group" style="float: right; margin-right: 30px;">
-			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<div id="btn-content" class="btn-group">
+			  <button id="btn-menu" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			   <?php echo $_SESSION['user']['Nombre'] ?> <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu">
@@ -253,7 +253,7 @@ if (isset($_SESSION['user'])) {
 					<form id="cargar-contrato" class="form col-lg-offset-2 col-lg-8 col-md-10 col-xs-12" method="POST">
 						<div class="form-group">
 							<h5 class="text-center text-muted">Empleado</h5>
-							<select name="cc" class="form-control" id="select-contratos">
+							<select name="cc" class="form-control" id="select-contratos" required>
 								<!-- Options generados dinámicamente -->
 							</select>
 						</div>

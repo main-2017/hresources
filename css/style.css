@@ -3,3 +3,34 @@
 	margin-right: 135px;
 }
 
+#btn-content{
+	float: right; 
+	margin-right: 30px;
+}
+
+/*Media Queries*/
+
+@media (min-width: 280px) and (max-width: 768px){
+	h4#text-logo {
+		width: 100%;
+		text-align: center;
+	}
+
+	#btn-content{
+		width: 100%;
+		float: none;
+	}
+
+	#btn-menu{
+		width: 100%;
+	}
+
+	ul.dropdown-menu{
+		width: 100%;
+	}
+
+	ul.dropdown-menu li{
+		text-align: center;
+	}
+}
+

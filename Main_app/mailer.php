@@ -1,5 +1,5 @@
-<!-- Envío de mails de alerta -->
-<?php 
+<?php
+// Envio de alertas por mail 
 if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 	require 'conexion.php';
 	session_start();

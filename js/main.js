@@ -267,42 +267,31 @@ function buscar_resumen(consulta){
 }
 
 // Intervalo de envío de mails
-setInterval(mailer, 3600000);
+setInterval(mailer(1), 3600000);
+
+function mailer(activacion){
+	jQuery.ajax({
+	  url: '../mailer.php',
+	  type: 'POST',
+	  dataType: 'json',
+	  data: {activacion: activacion},
+	  complete: function(resp) {
+	    if (!resp.error) {
+	    	console.log('Mailer funcionando');
+	    }else{
+	    	console.log('Mailer no funciona');
+	    }
+	  },
+	  success: function(data, textStatus, xhr) {
+	    //called when successful
+	  },
+	  error: function(respuesta) {
+	    console.log(respuesta.responseText);
+	  }
+	});
 	
-function mailer(){
-	// Función que inicializar el objeto HTTP
-	function inicializar_XHR(){
-		if (window.XMLHttpRequest) {
-			peticionHTTP = new XMLHttpRequest();
-		}else{
-			peticionHTTP = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-	};
+}
 
-	// Función que realiza la petición
-	function realizarPeticion(url, metodo, funcion){
-		peticionHTTP.onreadystatechange = funcion;
-		peticionHTTP.open(metodo, url, true);
-		peticionHTTP.send(null);
-	};
-
-	// Se realiza el llamado a Mailer
-	function llamarArchivo(){
-		inicializar_XHR();
-		realizarPeticion('../mailer.php', 'POST', funcionActuadora);
-	};
-
-	function funcionActuadora(){
-		if (peticionHTTP.readyState == 4) {
-			if (peticionHTTP.status == 200) {
-				console.log(peticionHTTP.responseText);
-			}
-		}
-	};
-
-
-	console.log("Esto es un contador de prueba");
-};
 
 // Busqueda en tiempo real de empleados
 $(buscar_empleados());
@@ -388,7 +377,6 @@ jQuery(document).on('submit', '#form-data-modal', function(event){
 $(document).on('click', '.eliminar-empleado', function(){
 	var dellCC = $(this).val();
 	$('#cc-empleado-eliminar').val(dellCC);
-	
 });
 
 $(document).on('submit', '#eliminarEmpleado', function(event){

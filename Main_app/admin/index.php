@@ -187,7 +187,7 @@ if (isset($_SESSION['user'])) {
 				      </div>
 				      <div class="modal-footer">
 				      <form  method="POST" accept-charset="utf-8" id="eliminarEmpleado">
-				      	<input type="numer" name="cc-empleado-eliminar" id="cc-empleado-eliminar" hidden value="">
+				      	<input type="number" name="cc-empleado-eliminar" id="cc-empleado-eliminar" hidden value="">
 				      </form>
 				        <button type="submit" class="btn btn-danger" value="confirm" form="eliminarEmpleado">Eliminar</button>
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="self.parent.location.reload();">Cerrar</button>

@@ -278,12 +278,13 @@ function mailer(activacion){
 	  complete: function(resp) {
 	    if (!resp.error) {
 	    	console.log('Mailer funcionando');
+	    	console.log(resp);
 	    }else{
 	    	console.log('Mailer no funciona');
 	    }
 	  },
-	  success: function(data, textStatus, xhr) {
-	    //called when successful
+	  success: function(data) {
+	    console.log(data.responseText);
 	  },
 	  error: function(respuesta) {
 	    console.log(respuesta.responseText);

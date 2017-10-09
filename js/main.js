@@ -81,6 +81,48 @@ jQuery(document).on('submit', '#ingresar-empleado', function(event){
 	
 });
 
+
+// Muestra la fecha limite permitida para el contrato que se esta cargando
+$(document).on('focus', '#Fecha_Fin', function(){
+	var tipoContrato = $('#tipoContrato').val();
+	var fechaInicial = $('#Fecha_Inicio').val();
+	var fechaLimite;
+	console.log(tipoContrato);
+	console.log(fechaInicial);
+
+	if (tipoContrato == "Temporal 3 meses") {
+		fechaLimite = sumaFecha(90, fechaInicial);
+	}else if (tipoContrato == "Temporal 1 año") {
+		fechaLimite = sumaFecha(365, fechaInicial);
+	}else{
+		fechaLimite = "No hay límite";
+	}
+
+	console.log(fechaLimite);
+
+	$('#ayudaFechaLimite').html("La fecha de finalización no puede superar el " + fechaLimite);
+});
+
+// Función para sumar fechas
+
+var sumaFecha = function(d, fecha)
+{
+ var Fecha = new Date();
+ var sFecha = fecha || (Fecha.getDate() + "/" + (Fecha.getMonth() +1) + "/" + Fecha.getFullYear());
+ var sep = sFecha.indexOf('/') != -1 ? '/' : '-'; 
+ var aFecha = sFecha.split(sep);
+ var fecha = aFecha[2]+'/'+aFecha[1]+'/'+aFecha[0];
+ fecha= new Date(fecha);
+ fecha.setDate(fecha.getDate()+parseInt(d));
+ var anno=fecha.getFullYear();
+ var mes= fecha.getMonth()+1;
+ var dia= fecha.getDate();
+ mes = (mes < 10) ? ("0" + mes) : mes;
+ dia = (dia < 10) ? ("0" + dia) : dia;
+ var fechaFinal = dia+sep+mes+sep+anno;
+ return (fechaFinal);
+ }
+
 // Envío de datos de contratos
 jQuery(document).on('submit', '#cargar-contrato', function(event){
 	event.preventDefault();

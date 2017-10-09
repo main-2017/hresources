@@ -8,6 +8,10 @@
 	margin-right: 30px;
 }
 
+.label-slider-edit{
+	/*Agregar estilos aqui*/
+}
+
 /*Media Queries*/
 
 @media (min-width: 280px) and (max-width: 768px){

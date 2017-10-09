@@ -258,7 +258,7 @@ if (isset($_SESSION['user'])) {
 							</select>
 						</div>
 						<h5 class="text-muted text-center">Tipo de contrato</h5>
-						<select class="form-control" name="tipo">
+						<select class="form-control" name="tipo" id="tipoContrato">
 							<option value="Temporal 3 meses">Temporal 3 meses</option>
 							<option value="Temporal 1 año">Temporal 1 año</option>
 							<option value="Indefinido">Indefinido</option>
@@ -270,6 +270,7 @@ if (isset($_SESSION['user'])) {
 							<input type="date" name="Fecha_Inicio" class="form-control" id="Fecha_Inicio" required placeholder="Fecha de inicio del contrato. Formato 'AAAA/MM/DD'">
 									
 							<input type="date" name="Fecha_Fin" class="form-control" id="Fecha_Fin" required placeholder="Fecha de Finalización del contrato. Formato 'AAAA/MM/DD'">
+							<span class="help-block" id="ayudaFechaLimite"></span>
 						</div>
 						<br>
 						

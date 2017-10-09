@@ -1,6 +1,5 @@
-<!-- Guardado de destinatarios de alertas en tabla Administradores -->
 <?php 
-
+// Guardado de destinatarios de alertas en tabla administradores
 	require 'conexion.php';
 	session_start();
 	$mysqli->set_charset('utf8');

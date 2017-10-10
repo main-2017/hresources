@@ -263,7 +263,6 @@ if (isset($_SESSION['user'])) {
 							<option value="Temporal 1 año">Temporal 1 año</option>
 							<option value="Indefinido">Indefinido</option>
 						</select>
-						<div class="form-group">
 							<br>
 							<h5 class="text-muted text-center">Fechas inicio y finalización de contrato</h5>
 							<br>
@@ -273,15 +272,21 @@ if (isset($_SESSION['user'])) {
 							<span class="help-block" id="ayudaFechaLimite"></span>
 						</div>
 						<br>
-						
-						<br>
-						<h5 class="text-muted text-center">Alerta de finalización de contrato</h5>
-						<select class="form-control" name="Alerta">
-							<option value="2592000">30 días antes</option>
-							<option value="864000">10 días antes</option>
-							<option value="172800">2 días antes</option>
-						</select>
-
+						<div class="form-group">
+							<h5 class="text-muted text-center">Cargo</h5>
+							<input class="form-control" id="cargo" type="text" name="cargo" placeholder="Cargo que ocupará el empleado">
+							<h5 class="text-muted text-center">Salario</h5>
+							<input class="form-control" id="salario" type="number" name="salario" placeholder="Salario del empleado">
+						</div>
+						<div class="form-group">
+							<br>
+							<h5 class="text-muted text-center">Alerta de finalización de contrato</h5>
+							<select class="form-control" name="Alerta">
+								<option value="2592000">30 días antes</option>
+								<option value="864000">10 días antes</option>
+								<option value="172800">2 días antes</option>
+							</select>
+						</div>
 						<hr>
 						<div style="float: right;">
 							<button type="reset" class="btn btn-danger">Borrar</button>

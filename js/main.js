@@ -92,27 +92,33 @@ $(document).on('focus', '#Fecha_Fin', function(){
 
 	if (tipoContrato == "Temporal 3 meses") {
 		fechaLimite = sumaFecha(90, fechaInicial);
+		$('#ayudaFechaLimite').html("La fecha de finalización no puede superar el " + fechaLimite);
 	}else if (tipoContrato == "Temporal 1 año") {
 		fechaLimite = sumaFecha(365, fechaInicial);
+		$('#ayudaFechaLimite').html("La fecha de finalización no puede superar el " + fechaLimite);
 	}else{
-		fechaLimite = "No hay límite";
+		$('#ayudaFechaLimite').html("No hay fecha límite para este contrato");
 	}
 
 	console.log(fechaLimite);
 
-	$('#ayudaFechaLimite').html("La fecha de finalización no puede superar el " + fechaLimite);
+	
 });
 
 // Función para sumar fechas
 
-var sumaFecha = function(d, fecha)
-{
- var Fecha = new Date();
- var sFecha = fecha || (Fecha.getDate() + "/" + (Fecha.getMonth() +1) + "/" + Fecha.getFullYear());
+var sumaFecha = function(d, fecha){
+ var sFecha = fecha;
  var sep = sFecha.indexOf('/') != -1 ? '/' : '-'; 
+ console.log(sep);
  var aFecha = sFecha.split(sep);
- var fecha = aFecha[2]+'/'+aFecha[1]+'/'+aFecha[0];
+ console.log(aFecha);
+ var fecha = aFecha[0]+'/'+aFecha[1]+'/'+aFecha[2];
+ console.log(aFecha[2]);
+ console.log(aFecha[1]);
+ console.log(aFecha[0]);
  fecha= new Date(fecha);
+ console.log(fecha);
  fecha.setDate(fecha.getDate()+parseInt(d));
  var anno=fecha.getFullYear();
  var mes= fecha.getMonth()+1;

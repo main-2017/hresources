@@ -258,7 +258,7 @@ if (isset($_SESSION['user'])) {
 							</select>
 						</div>
 						<h5 class="text-muted text-center">Tipo de contrato</h5>
-						<select class="form-control" name="tipo" id="tipoContrato">
+						<select class="form-control" name="Tipo" id="tipoContrato">
 							<option value="Temporal 3 meses">Temporal 3 meses</option>
 							<option value="Temporal 1 año">Temporal 1 año</option>
 							<option value="Indefinido">Indefinido</option>
@@ -270,13 +270,12 @@ if (isset($_SESSION['user'])) {
 									
 							<input type="date" name="Fecha_Fin" class="form-control" id="Fecha_Fin" required placeholder="Fecha de Finalización del contrato. Formato 'AAAA/MM/DD'">
 							<span class="help-block" id="ayudaFechaLimite"></span>
-						</div>
 						<br>
 						<div class="form-group">
 							<h5 class="text-muted text-center">Cargo</h5>
-							<input class="form-control" id="cargo" type="text" name="cargo" placeholder="Cargo que ocupará el empleado">
+							<input class="form-control" id="cargo" type="text" name="Cargo" placeholder="Cargo que ocupará el empleado" required>
 							<h5 class="text-muted text-center">Salario</h5>
-							<input class="form-control" id="salario" type="number" name="salario" placeholder="Salario del empleado">
+							<input class="form-control" id="salario" type="number" step="any" name="Salario" placeholder="Salario del empleado" required>
 						</div>
 						<div class="form-group">
 							<br>
@@ -294,7 +293,8 @@ if (isset($_SESSION['user'])) {
 						</div>
 					</form>
 				</div>
-			</div>
+				</div>
+
 			<!-- Sección de Modificación y eliminación de contratos -->
 			<div id="modificar-contrato" class="tab-pane fade">
 				<div class="container">
@@ -309,6 +309,8 @@ if (isset($_SESSION['user'])) {
 								<!-- Tabla generada de manera dinámica -->
 							</div>
 					</form>
+			</div>
+		</div>
 					<!-- Modal con Formulario de edición de contratos -->
 						<div id="modal-modificar-contrato" class="modal fade" role="dialog">
 						  <div class="modal-dialog">
@@ -337,6 +339,7 @@ if (isset($_SESSION['user'])) {
 						    </div>
 						  </div>
 						</div>
+				</div>
 				<!-- Fin de Modal con Formulario de edición de contratos -->
 
 				<!-- Modal de confirmación de eliminación -->

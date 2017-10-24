@@ -10,6 +10,8 @@
  	$tipo ='';
  	$ingreso ='';
  	$cc = '';
+ 	$cargo = '';
+ 	$salario = 00.00;
  	$bandera = false;
  	
  	if (isset($_POST['cc'])) {
@@ -32,8 +34,18 @@
  		
  	}
 
- 	if (isset($_POST['tipo'])) {
-		$tipo = $mysqli->real_escape_string($_POST['tipo']);
+ 	if (isset($_POST['Tipo'])) {
+		$tipo = $mysqli->real_escape_string($_POST['Tipo']);
+ 		
+ 	}
+
+ 	if (isset($_POST['Cargo'])) {
+		$cargo = $mysqli->real_escape_string($_POST['Cargo']);
+ 		
+ 	}
+
+ 	if (isset($_POST['Salario'])) {
+		$salario = (float)($_POST['Salario']);
  		
  	}
 
@@ -56,13 +68,13 @@
 	}
 
 	if ($bandera) {
-		$ingreso = $mysqli->query("INSERT INTO contratos(CC, Fecha_Inicio, Fecha_Fin, Tipo, Alerta1) VALUES('".$cc."', '".$fechai."', '".$fechaf."', '".$tipo."', '".$aviso_result."');");
+		$ingreso = $mysqli->query("INSERT INTO contratos(CC, Fecha_inicio, Fecha_Fin, Tipo, Cargo, Salario, Alerta1) VALUES('".$cc."', '".$fechai."', '".$fechaf."', '".$tipo."', '".$cargo."', TRUNCATE(".$salario.", 2), '".$aviso_result."');") or die("Error " . mysqli_error($mysqli));
 	}else{
 		$ingreso = false;
 	}
 
 	if ($ingreso) {
-		echo json_encode(array('error' => false));
+		echo json_encode(array('error' => false, 'salario' => $salario));
 	}else{
 		echo json_encode(array('error' => true));	
 	}

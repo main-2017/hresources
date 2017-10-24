@@ -108,25 +108,25 @@ $(document).on('focus', '#Fecha_Fin', function(){
 // Función para sumar fechas
 
 var sumaFecha = function(d, fecha){
- var sFecha = fecha;
- var sep = sFecha.indexOf('/') != -1 ? '/' : '-'; 
- console.log(sep);
- var aFecha = sFecha.split(sep);
- console.log(aFecha);
- var fecha = aFecha[0]+'/'+aFecha[1]+'/'+aFecha[2];
- console.log(aFecha[2]);
- console.log(aFecha[1]);
- console.log(aFecha[0]);
- fecha= new Date(fecha);
- console.log(fecha);
- fecha.setDate(fecha.getDate()+parseInt(d));
- var anno=fecha.getFullYear();
- var mes= fecha.getMonth()+1;
- var dia= fecha.getDate();
- mes = (mes < 10) ? ("0" + mes) : mes;
- dia = (dia < 10) ? ("0" + dia) : dia;
- var fechaFinal = dia+sep+mes+sep+anno;
- return (fechaFinal);
+	 var sFecha = fecha;
+	 var sep = sFecha.indexOf('/') != -1 ? '/' : '-'; 
+	 console.log(sep);
+	 var aFecha = sFecha.split(sep);
+	 console.log(aFecha);
+	 var fecha = aFecha[0]+'/'+aFecha[1]+'/'+aFecha[2];
+	 console.log(aFecha[2]);
+	 console.log(aFecha[1]);
+	 console.log(aFecha[0]);
+	 fecha= new Date(fecha);
+	 console.log(fecha);
+	 fecha.setDate(fecha.getDate()+parseInt(d));
+	 var anno=fecha.getFullYear();
+	 var mes= fecha.getMonth()+1;
+	 var dia= fecha.getDate();
+	 mes = (mes < 10) ? ("0" + mes) : mes;
+	 dia = (dia < 10) ? ("0" + dia) : dia;
+	 var fechaFinal = dia+sep+mes+sep+anno;
+return (fechaFinal);
  }
 
 // Envío de datos de contratos
@@ -138,18 +138,21 @@ jQuery(document).on('submit', '#cargar-contrato', function(event){
 	  dataType: 'json',
 	  data: $(this).serialize(),
 	  beforeSend: function(){
-		  	console.log("enviando");
+		  	console.log("Enviando consulta");
 		  	}
 		})
 		.done(function(servidorResp){
 			if (!servidorResp.error){
-				$('#exito_contrato').modal('show');					
+				$('#exito_contrato').modal('show');	
+				console.log(servidorResp);				
 			}else{
 				$('#error_contrato').modal('show');
+				console.log(servidorResp);
+				console.log(servidorResp.responseText);
 			}
 		})
 		.fail(function(sanswer){
-			console.log("Error recibido: " + sanswer);
+			console.log("Error recibido: " + sanswer.responseText);
 			
 		})	
 });
@@ -326,7 +329,6 @@ function mailer(activacion){
 	  complete: function(resp) {
 	    if (!resp.error) {
 	    	console.log('Mailer funcionando');
-	    	console.log(resp);
 	    }else{
 	    	console.log('Mailer no funciona');
 	    }
